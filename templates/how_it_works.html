@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How It Works - JobLink</title>
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background: black;
+    color: white;
+    padding: 30px 40px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.register {
+    background: #ffcc00;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: black;
+}
+
+/* ✅ New button style for Home */
+.how-button {
+    background: #ffcc00;
+    padding: 5px 12px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.how-button:hover {
+    background: #388e3c;
+}
+
+.hero {
+    background: url("{{ url_for('static', filename='images/purple_background.jpg') }}") no-repeat center;
+      background-size: cover;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+.hero p {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 30px;
+      color: black;
+      opacity: 0.8;
+    }
+.cta-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 30px 40px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+}
+        .steps-section {
+            padding: 50px 20px;
+            background: black;
+            color: white;
+            text-align: center;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .step-box {
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 350px;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .step-box:hover {
+            transform: scale(1.03);
+        }
+
+        .step-box img, .step-box video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .step-box h3 {
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+
+        .step-box p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .section-title {
+            font-size: 36px;
+            color: #ffcc00;
+            margin-bottom: 20px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ffcc00;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: #e6b800;
+        }
+
+        .hero {
+            background: url("{{ url_for('static', filename='images/purple_background.jpg') }}") no-repeat center;
+            background-size: cover;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            color: grey;
+            font-size: 50px;
+            font-weight: lighter;
+        }
+
+        .hero p {
+            color: black;
+            font-size: 24px;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-size: px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">JobLink</div>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('how_it_works') }}" class="how-button">How It Works</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('help_page') }}">Help</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('login') }}" id="login">Login</a></li>
+                <li><a href="{{ url_for('register') }}" class="register">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>How It Works ?</h1>
+        <p>Simple steps to connect job seekers and employers</p>
+    </section>
+
+   <!-- Job Seekers Section -->
+<section class="steps-section">
+  <h2 class="section-title">For Job Seekers</h2>
+  <div class="steps-container">
+      <div class="step-box">
+          <h3>1. Sign Up</h3>
+          <p>Join JobLink by creating a free account.</p>
+          <p> Fill out your profile with details like your skills, preferred job types, availability, and current location. This helps us match you with the most suitable opportunities nearby.</p>
+          <a href="{{ url_for('register') }}" class="cta-btn">Register Now</a>
+     
+      </div>
+      <div class="step-box">
+          <h3>2. Browse Jobs</h3>
+          <p>After logging in, access the job dashboard to explore a list of daily and short-term jobs. Use filters to narrow results by job type, pay range, location, or required skills. Get real-time updates as new jobs are posted.</p>
+          <a href="{{ url_for('login') }}" class="cta-btn">Login to Browse</a>
+         
+      </div>
+      <div class="step-box">
+          <h3>3. Apply Instantly</h3>
+          <p>Click the "Apply" button on any job post you're interested in. No need for long applications—employers will review your profile and get in touch. Get notifications when you're selected or messaged by an employer.</p>
+          <a href="{{ url_for('login') }}" class="cta-btn">Login to Apply</a>
+         
+      </div>
+      <div class="step-box">
+          <h3>4. Start Working</h3>
+          <p>Once selected, you'll receive instructions on the job location, time, and contact person. Complete the task and get paid as agreed. You can also rate the employer and add completed jobs to your experience.</p>
+         
+      </div>
+  </div>
+</section>
+
+<!-- Employers Section -->
+<section class="steps-section">
+  <h2 class="section-title">For Employee Seekers</h2>
+  <div class="steps-container">
+      <div class="step-box">
+          <h3>1. Post a Job</h3>
+          <p>Create a job post by entering details such as job title, description, required skills, location, date/time, and payment amount. Posting is quick, and your job goes live instantly to workers in your area.</p>
+          <a href="{{ url_for('login') }}" class="cta-btn">Post a Job</a>
+        
+      </div>
+      <div class="step-box">
+          <h3>2. Get Matched</h3>
+          <p>Our smart system will show your job to the most relevant job seekers based on skills and location. You'll start receiving interest from potential workers quickly, often within minutes of posting.</p>
+        
+      </div>
+      <div class="step-box">
+          <h3>3. Hire & Connect</h3>
+          <p>Review applicants, check their profiles and ratings, and choose the right person. Use in-app messaging to communicate job details. Once confirmed, the worker starts and you can track the job to completion.</p>
+          <a href="{{ url_for('login') }}" class="cta-btn">Login to Hire</a>
+          
+      </div>
+  </div>
+</section>
+
+
+    <section class="contact-section">
+        <h2>Still Have Questions?</h2>
+        <p>Email: JobLink@gmail.com | Phone: +91 8770919505</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 JobLink. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

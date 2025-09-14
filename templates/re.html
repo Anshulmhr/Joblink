@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobLink - Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    header {
+      background: black;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+
+    .search-location-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-bar input,
+    .location-bar input {
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .search-bar button,
+    .location-bar button {
+      background: #ffcc00;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .profile-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .dashboard-container {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: grey;
+      margin-bottom: 40px;
+    }
+
+    .job-listings {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .job-card {
+      display: flex;
+      background: #222;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(255, 204, 0, 0.2);
+    }
+
+    .job-card img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .job-card-content {
+      padding: 20px;
+      flex: 1;
+    }
+
+    .job-card-content h3 {
+      margin-top: 0;
+      color: #ffcc00;
+    }
+
+    footer {
+      background: #333;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      margin-top: 60px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">JobLink</div>
+
+  <div class="search-location-bar">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search jobs...">
+      <button onclick="searchJobs()">Search</button>
+    </div>
+    <div class="location-bar">
+      <input type="text" id="locationInput" placeholder="Enter Location">
+      <button onclick="getLocation()">Get Location</button>
+    </div>
+  </div>
+
+  <div class="profile-icon" onclick="editProfile()">
+    <a href="{{ url_for('profile') }}"><img src="{{url_for('static',filename='images/profile.webp') }}"></a>
+  </div>
+</header>
+
+<div class="dashboard-container">
+
+  <h1>Available Jobs</h1>
+
+  <div class="job-listings">
+
+    <!-- Job 1 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/delie_bhaiya.avif') }}" alt="Delivery Boy Job">
+      <div class="job-card-content">
+        <h3>Delivery Boy Needed</h3>
+        <p><strong>Employer:</strong> Ravi Sharma</p> <!-- Added employer name -->
+        <p><strong>Location:</strong> Mumbai, India</p>
+        <p><strong>Contact:</strong> +91 9876543210</p>
+        <p><strong>Details:</strong> Deliver parcels across Bandra area. Daily payment available. Timing flexible.</p>
+      </div>
+    </div>
+
+    <!-- Job 2 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/house_helper.avif') }}" alt="Household Helper">
+      <div class="job-card-content">
+        <h3>Household Helper</h3>
+        <p><strong>Employer:</strong> Anita Kapoor</p> <!-- Added employer name -->
+        <p><strong>Location:</strong> Delhi, India</p>
+        <p><strong>Contact:</strong> +91 8765432109</p>
+        <p><strong>Details:</strong> Helping hand needed for cleaning and organizing the house.</p>
+      </div>
+    </div>
+
+    <!-- Job 3 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/waiter.avif') }}" alt="Waiter Job">
+      <div class="job-card-content">
+        <h3>Waiter Required</h3>
+        <p><strong>Employer:</strong> Sunil Verma</p> <!-- Added employer name -->
+        <p><strong>Location:</strong> Pune, India</p>
+        <p><strong>Contact:</strong> +91 9988776655</p>
+        <p><strong>Details:</strong> Serve at a small café during morning and evening shifts. Meals included.</p>
+      </div>
+    </div>
+
+    <!-- Job 4 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/field_work.avif') }}" alt="Farm Work">
+      <div class="job-card-content">
+        <h3>Field Worker Needed</h3>
+        <p><strong>Employer:</strong> Priya Nair</p> <!-- Added employer name -->
+        <p><strong>Location:</strong> Bangalore, India</p>
+        <p><strong>Contact:</strong> +91 8899776655</p>
+        <p><strong>Details:</strong> Assist with harvesting vegetables. Food and stay provided.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Employer Section -->
+  <h1 style="margin-top:60px;">Available Employers</h1>
+
+  <div class="job-listings">
+
+    <!-- Employer 1 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/employee1.avif') }}" alt="Employer 1">
+      <div class="job-card-content">
+        <h3>Ravi Sharma</h3>
+        <p><strong>Location:</strong> Mumbai, India</p>
+        <p><strong>Contact:</strong> +91 9123456789</p>
+        <p><strong>Looking for:</strong> Delivery boy for e-commerce packages.</p>
+      </div>
+    </div>
+
+    <!-- Employer 2 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/employee2.avif') }}" alt="Employer 2">
+      <div class="job-card-content">
+        <h3>Anita Kapoor</h3>
+        <p><strong>Location:</strong> Delhi, India</p>
+        <p><strong>Contact:</strong> +91 9234567890</p>
+        <p><strong>Looking for:</strong> House help for cleaning and laundry work.</p>
+      </div>
+    </div>
+
+    <!-- Employer 3 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/employee3.avif') }}" alt="Employer 3">
+      <div class="job-card-content">
+        <h3>Sunil Verma</h3>
+        <p><strong>Location:</strong> Pune, India</p>
+        <p><strong>Contact:</strong> +91 9345678901</p>
+        <p><strong>Looking for:</strong> Waiter for his small restaurant (evening shift).</p>
+      </div>
+    </div>
+
+    <!-- Employer 4 -->
+    <div class="job-card">
+      <img src="{{url_for('static',filename='images/employee4.avif') }}" alt="Employer 4">
+      <div class="job-card-content">
+        <h3>Pratham Nair</h3>
+        <p><strong>Location:</strong> Bangalore, India</p>
+        <p><strong>Contact:</strong> +91 9456789012</p>
+        <p><strong>Looking for:</strong> Farming helper for seasonal vegetable picking.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2025 JobLink. All rights reserved.</p>
+</footer>
+
+<script>
+  function searchJobs() {
+    let searchTerm = document.getElementById("searchInput").value;
+    if (searchTerm) {
+      alert("Searching for jobs related to: " + searchTerm);
+    } else {
+      alert("Please enter a job keyword to search.");
+    }
+  }
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        alert("Location accessed!\nLatitude: " + position.coords.latitude + "\nLongitude: " + position.coords.longitude);
+      }, function (error) {
+        alert("Error getting location: " + error.message);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  }
+
+  function editProfile() {
+    //alert("Redirecting to edit profile page...");
+     window.location.href = `/profile`
+  }
+</script>
+
+</body>
+</html>

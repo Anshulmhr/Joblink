@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a Job</title>
+</head>
+<body>
+    <h1>Post a New Job</h1>
+    <form action="/post-job" method="post">
+        <label>Job Title:</label><br>
+        <input type="text" name="title" required><br><br>
+
+        <label>Job Details:</label><br>
+        <textarea name="details" rows="5" required></textarea><br><br>
+
+        <label>Stipend:</label><br>
+        <input type="text" name="stipend" required><br><br>
+
+        <label>Location (optional):</label><br>
+        <input type="text" name="location"><br><br>
+
+        <button type="submit">Post Job</button>
+    </form>
+</body>
+</html>

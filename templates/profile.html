@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobLink - Profile</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      box-sizing: border-box;
+    }
+
+    header {
+      background: black;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffcc00;
+    }
+
+    .profile-container {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .profile-form label {
+      font-weight: bold;
+    }
+
+    .profile-form input, .profile-form select {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      background-color: #333;
+      color: white;
+    }
+
+    .profile-form button {
+      background: #ffcc00;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .profile-form button:hover {
+      background: #e6b800;
+    }
+
+    .profile-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-avatar input {
+      padding: 10px;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .profile-avatar img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .default-avatar {
+      width: 120px;
+      height: 120px;
+      background-color: #ffcc00;
+      color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      font-weight: bold;
+      border-radius: 50%;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">JobLink</div>
+  <div><a href="{{ url_for('dashboard') }}" style="color: #ffcc00;">Back to Dashboard</a></div>
+</header>
+
+<div class="profile-container">
+  <h1>Your Profile</h1>
+
+  <div class="profile-form">
+    <div class="profile-avatar">
+      <div id="avatar" class="default-avatar">A</div>
+      <input type="file" id="avatarInput" onchange="uploadAvatar()" />
+    </div>
+
+    <label for="fullname">Full Name</label>
+    <input type="text" id="name" placeholder="Enter your full name" oninput="updateAvatar()" />
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="Enter your email" />
+
+    <label for="phone">Phone Number</label>
+    <input type="text" id="phone" placeholder="Enter your phone number" />
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="Enter your location" />
+
+    <label for="bio">Short Bio</label>
+    <textarea id="bio" placeholder="Write a short bio about yourself" rows="4"></textarea>
+
+    <label for="accountType">Account Type</label>
+    <select id="accountType">
+      <option value="employee">Employee</option>
+      <option value="employer">Employer</option>
+    </select>
+
+    <label for="notifications">
+      <input type="checkbox" id="notifications" />
+      Receive notifications for new jobs
+    </label>
+
+    <button onclick="saveProfile()">Save Profile</button>
+  </div>
+</div>
+
+<script>
+  // Function to update the default avatar with the first letter of the user's name
+  function updateAvatar() {
+    const name = document.getElementById("fullName").value;
+    const avatar = document.getElementById("avatar");
+    if (fullName) {
+      avatar.textContent = fullName.charAt(0).toUpperCase();  // Display first letter
+    } else {
+      avatar.textContent = "A";  // Default to "A" if no name is entered
+    }
+  }
+
+  // Function to upload and display an image when selected
+  function uploadAvatar() {
+    const fileInput = document.getElementById("avatarInput");
+    const avatar = document.getElementById("avatar");
+
+    const file = fileInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        avatar.innerHTML = '';  // Remove text if image is uploaded
+        const img = document.createElement('img');
+        img.src = reader.result;
+        avatar.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Function to save profile
+  function saveProfile() {
+  const fullName = document.getElementById("fullName").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const location = document.getElementById("location").value;
+  const bio = document.getElementById("bio").value;
+  const accountType = document.getElementById("accountType").value;
+  const notifications = document.getElementById("notifications").checked;
+
+  if (fullName && email && phone && location) {
+    const profileData = {
+      fullName,
+      email,
+      phone,
+      location,
+      bio,
+      accountType,
+      notifications
+    };
+
+    fetch('/save_profile', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(profileData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message || "Profile updated successfully!");
+      } else {
+        alert(data.error || "Failed to update profile.");
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("An error occurred while saving profile.");
+    });
+
+  } else {
+    alert("Please fill out all the fields.");
+  }
+}
+
+</script>
+
+</body>
+</html>

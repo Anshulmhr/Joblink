@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | JobLink</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: white;
+      background: black; /* fallback */
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 30px 40px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .register, .login-button {
+      background: #ffcc00;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: black;
+      font-weight: bold;
+    }
+
+    .login-button {
+      color: white;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 5px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .search-bar input {
+      border: none;
+      padding: 5px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background: #ffcc00;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    
+    .hero {
+      background: url("{{ url_for('static', filename='images/purple_background.jpg') }}") no-repeat center;
+      background-size: cover;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      color: grey;
+      font-size: 50px;
+      font-weight: lighter;
+    }
+
+    .hero p {
+      color: black;
+      margin-top: 10px;
+      opacity: 0.8;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 30px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #ffcc00;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+      color: white;
+    }
+
+    .input-group input:focus {
+      outline: 2px solid #ffcc00;
+    }
+
+    .btn {
+      background-color: #ffcc00;
+      color: black;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e6b800;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: 5px;
+    }
+
+    .forgot-password a {
+      font-size: 14px;
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 15px;
+      color: #ccc;
+    }
+
+    .links a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 20px;
+    }
+
+    .info-card h3 {
+      color: #ffcc00;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      color: #eee;
+      font-size: 14px;
+    }
+
+    .error-msg {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 768px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">JobLink</div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search jobs...">
+        <button onclick="searchJobs()">Search</button>
+      </div>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('how_it_works') }}">How It Works</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('help_page') }}">Help</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('login') }}" class="login-button">Login</a></li>
+        <li><a href="{{ url_for('register') }}" class="register">Register</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="hero-bg">
+    <section class="hero">
+      <h1> JobLink</h1>
+      <p>Login to find work or hire skilled individuals today!</p>
+    </section>
+  </div>
+<br>
+  <div class="main-section">
+    <section class="content-grid">
+      <!-- Login Form -->
+      <div class="card login-container">
+        <h2>Login</h2>
+        <div class="error-msg" id="errorMsg">Invalid username or password!</div>
+
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" />
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" />
+        </div>
+
+        <button class="btn" onclick="login()">Login</button>
+
+        <div class="forgot-password">
+          <a href="{{ url_for('forget_pass') }}">Forgot Password?</a>
+        </div>
+
+        <div class="links">
+          New here? <a href="{{ url_for('register') }}">Register now</a><br>
+          <a href="{{ url_for('how_it_works') }}">How does JobLink work?</a>
+        </div>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="card">
+        <div class="info-card">
+          <h3>👷 Job Seekers</h3>
+          <p>Create a profile and get matched with local work opportunities.</p>
+        </div>
+        <div class="info-card">
+          <h3>📢 Employers</h3>
+          <p>Post jobs and quickly connect with available workers near you.</p>
+        </div>
+        <div class="info-card">
+          <h3>⚡ Fast & Easy</h3>
+          <p>JobLink makes finding or offering jobs quick, simple, and reliable.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 JobLink. All rights reserved.</p>
+    <p>Contact: support@joblink.com | Follow us: @JobLink</p>
+  </footer>
+
+  <script>
+    async function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+  
+      // Hide the error message initially
+      errorMsg.style.display = "none";
+  
+      if (!username || !password) {
+        errorMsg.textContent = "Please fill in both fields.";
+        errorMsg.style.display = "block";
+        return;
+      }
+  
+      try {
+        const response = await fetch("/login_user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+  
+        const result = await response.json();
+  
+        if (result.success) {
+          window.location.href = '/dashboard';
+        } else {
+          errorMsg.textContent = result.error || "Invalid username or password!";
+          errorMsg.style.display = "block";
+        }
+
+      } catch (error) {
+        console.error("Login error:", error);
+        errorMsg.textContent = "An error occurred. Please try again.";
+        errorMsg.style.display = "block";
+      }
+    }  
+
+    function searchJobs() {
+      let searchTerm = document.getElementById("searchInput").value;
+      if (searchTerm) {
+        alert("Searching for jobs related to: " + searchTerm);
+      } else {
+        alert("Please enter a job keyword to search.");
+      }
+    }
+  </script>
+
+</body>
+</html>

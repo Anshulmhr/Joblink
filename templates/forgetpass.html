@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Forgot Password | JobLink</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: white;
+      background: black;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 30px 40px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .register, .login-button {
+      background: #ffcc00;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .login-button {
+      color: white;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 5px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .search-bar input {
+      border: none;
+      padding: 5px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background: #ffcc00;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: url('purple background.jpg') no-repeat center center/cover;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .hero h1 {
+      color: grey;
+      font-size: 48px;
+      font-weight: lighter;
+    }
+
+    .hero p {
+      font-size: 24px;
+      color: black;
+      opacity: 0.8;
+    }
+
+    .form-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ffcc00;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+      color: white;
+    }
+
+    .input-group input:focus {
+      outline: 2px solid #ffcc00;
+    }
+
+    .btn {
+      background-color: #ffcc00;
+      color: black;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e6b800;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 20px;
+      color: #ccc;
+    }
+
+    .links a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">JobLink</div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search jobs...">
+        <button onclick="searchJobs()">Search</button>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>|</li>
+        <li><a href="howitworks.html">How It Works</a></li>
+        <li>|</li>
+        <li><a href="help.html">Help</a></li>
+        <li>|</li>
+        <li><a href="about.html">About</a></li>
+        <li>|</li>
+        <li><a href="login.html" class="login-button">Login</a></li>
+        <li><a href="register.html" class="register">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Forgot Password</h1>
+    <p>Reset your password securely and quickly</p>
+  </section>
+
+  <div class="form-container">
+    <h2>Reset Password</h2>
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" />
+    </div>
+
+    <div class="input-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="Enter your phone number" />
+    </div>
+
+    <button class="btn" onclick="resetPassword()">Send Reset Link</button>
+
+    <div class="links">
+      Remembered your password? <a href="login.html">Go back to Login</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 JobLink. All rights reserved.</p>
+    <p>Contact: support@joblink.com | Follow us: @JobLink</p>
+  </footer>
+
+  <script>
+    function resetPassword() {
+      const username = document.getElementById("username").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (username && phone) {
+        alert("A reset link has been sent to your registered contact. 📩");
+        window.location.href = "login.html";
+      } else {
+        alert("Please enter both your username and phone number.");
+      }
+    }
+
+    function searchJobs() {
+      let searchTerm = document.getElementById("searchInput").value;
+      if (searchTerm) {
+        alert("Searching for jobs related to: " + searchTerm);
+      } else {
+        alert("Please enter a job keyword to search.");
+      }
+    }
+  </script>
+</body>
+</html>

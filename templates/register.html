@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register | JobLink</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 30px 40px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav ul li {
+      margin: 0 10px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .register, .login-button {
+      background: #ffcc00;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: black;
+      font-weight: bold;
+    }
+
+    .login-button {
+      color: white;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: white;
+      padding: 5px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+
+    .search-bar input {
+      border: none;
+      padding: 5px;
+      outline: none;
+    }
+
+    .search-bar button {
+      background: #ffcc00;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .hero-bg {
+      background: url("{{ url_for('static', filename='images/purple_background.jpg') }}") no-repeat center;
+      padding: 30px 20px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      color: grey;
+      font-size: 50px;
+      font-weight: lighter;
+    }
+
+    .hero p {
+      color: black;
+      margin-top: 10px;
+      opacity: 0.8;
+      font-size: 30px;
+    }
+
+    .main-section {
+      display: flex;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.75);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .card h2 {
+      text-align: center;
+      color: #ffcc00;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: #eee;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #333;
+      color: white;
+    }
+
+    .input-group input:focus {
+      outline: 2px solid #ffcc00;
+    }
+
+    .role-options {
+      display: flex;
+      gap: 20px;
+      margin-top: 10px;
+    }
+
+    .custom-radio {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #ccc;
+      font-size: 16px;
+    }
+
+    .custom-radio input[type="radio"] {
+      display: none;
+    }
+
+    .checkmark {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: #333;
+      border: 2px solid #ffcc00;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 18px;
+      font-size: 14px;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .custom-radio input:checked + .checkmark {
+      background-color: #ffcc00;
+      color: black;
+      content: "✔";
+    }
+
+    .btn {
+      background-color: #ffcc00;
+      color: black;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e6b800;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 15px;
+      color: #ccc;
+    }
+
+    .links a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <nav>
+      <div class="logo">JobLink</div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search jobs...">
+        <button onclick="searchJobs()">Search</button>
+      </div>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('how_it_works') }}">How It Works</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('help_page') }}">Help</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li>|</li>
+        <li><a href="{{ url_for('login') }}" class="login-button">Login</a></li>
+        <li><a href="{{ url_for('register') }}" class="register">Register</a></li>
+        </ul>
+    </nav>
+  </header>
+
+  <div class="hero-bg">
+    <section class="hero">
+      <h1>JobLink</h1>
+      <p>Create an account to get started!</p>
+    </section>
+  </div>
+
+  <div class="main-section">
+    <div class="card">
+      <h2>Create Your Own Joblink Account</h2>
+
+      <div class="input-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="Enter your full name" />
+      </div>
+
+      <div class="input-group">
+        <label for="Email">Email</label>
+        <input type="text" id="Email" placeholder="Enter your Email" />
+      </div>
+
+      <div class="input-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" />
+      </div>
+
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Choose a username" />
+      </div>
+
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Create a password" />
+      </div>
+
+      <div class="input-group">
+        <label>Registering As</label>
+        <div class="role-options">
+          <label class="custom-radio">
+            <input type="radio" name="role" value="Employer" />
+            <span class="checkmark">✔</span>
+            Employer
+          </label>
+          <label class="custom-radio">
+            <input type="radio" name="role" value="Employee" />
+            <span class="checkmark">✔</span>
+            Employee
+          </label>
+        </div>
+      </div>
+
+      <button class="btn" onclick="register()">Register</button>
+
+      <div class="links">
+        Already have an account? <a href="{{ url_for('login') }}">Login here</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 JobLink. All rights reserved.</p>
+    <p>Contact: support@joblink.com | Follow us: @JobLink</p>
+  </footer>
+
+  <script>
+  async function register() {
+    const name = document.getElementById("fullname").value.trim();
+    const email = document.getElementById("Email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const roleInputs = document.getElementsByName("role");
+    
+    let role = "";
+    for (let i = 0; i < roleInputs.length; i++) {
+      if (roleInputs[i].checked) {
+        role = roleInputs[i].value;
+        break;
+      }
+    }
+
+    // Basic validation (client-side)
+    if (!name || !email || !phone || !username || !password || !role) {
+      alert("Please fill in all the fields!");
+      return;
+    }
+
+    const userData = {
+      name,
+      email,
+      phone,
+      username,
+      password,
+      role
+    };
+
+    try {
+      const response = await fetch("/register_user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("Registration successful!");
+        window.location.href = "/login";
+      } else {
+        alert("Error: " + result.error);
+      }
+
+    } catch (error) {
+      console.error("Registration failed:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  }
+</script>
+
+</body>
+</html>

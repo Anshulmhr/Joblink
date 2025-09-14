@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobLink - Hired</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .hired-box {
+      background-color: #222;
+      border: 2px solid #ffcc00;
+      border-radius: 20px;
+      padding: 50px 30px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+      max-width: 500px;
+    }
+
+    .hired-box h1 {
+      color: #ffcc00;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .hired-box p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .hired-box a {
+      display: inline-block;
+      background: #ffcc00;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .hired-box a:hover {
+      background: #e6b800;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hired-box">
+    <h1>🎉 Congratulations!</h1>
+    <p>You are hired!<br>We will get back to you soon with further details.</p>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+  </div>
+
+</body>
+</html>
