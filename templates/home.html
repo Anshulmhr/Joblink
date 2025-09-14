@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JobLink: Connecting Unemployed Individuals for Daily Jobs</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">JobLink</div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search jobs...">
+                <button onclick="searchJobs()">Search</button>
+            </div>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('how_it_works') }}">How It Works</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('help_page') }}">Help</a></li>
+                <li>|</li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li>|</li>
+                <li><a class="login-btn" onclick="openLoginSelection()">Login</a></li>
+                <li><a class="register-btn" onclick="openRegisterForm()">Register</a></li>
+
+
+
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Login Selection Popup -->
+    <div class="popup" id="loginPopup" style="display:none;">
+        <span class="close" onclick="closePopup()">X</span>
+        <h2>Select Login Type</h2>
+        <button onclick="openLoginForm('user')">User Login</button>
+        <button onclick="openLoginForm('jobProvider')">Job Provider Login</button>
+    </div>
+
+    <!-- User Login Popup -->
+    <div class="popup" id="userLogin" style="display:none;">
+        <span class="close" onclick="closePopup()">X</span>
+        <h2>User Login</h2>
+        <input type="text" id="loginUsername" placeholder="Enter Username">
+        <input type="password" id="loginPassword" placeholder="Enter Password">
+        <button onclick="userLogin()">Login</button>
+    </div>
+
+    <!-- Job Provider Login Popup -->
+    <div class="popup" id="jobProviderLogin" style="display:none;">
+        <span class="close" onclick="closePopup()">X</span>
+        <h2>Job Provider Login</h2>
+        <input type="text" placeholder="Enter Name">
+        <input type="text" placeholder="Enter Mobile Number">
+        <input type="password" placeholder="Enter Password">
+        <button onclick="redirectTo('job_provider.html')">Login</button>
+    </div>
+
+    <!-- Register Popup -->
+    <div class="popup" id="registerPopup" style="display:none;">
+        <span class="close" onclick="closePopup()">X</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" placeholder="Full Name" id="fullName" required>
+            <input type="text" placeholder="Username" id="username" required>
+            <input type="number" placeholder="Mobile No." id="Mobile" required>
+            <input type="date" id="dob" required>
+            <input type="text" placeholder="Address" id="address" required>
+            <input type="password" placeholder="Password" id="password" required>
+            <input type="password" placeholder="Re-write password" id="confirmPassword" required>
+            <button type="button" onclick="submitRegistration()">Register</button>
+        </form>
+    </div>
+
+    <div id="overlay" style="display:none;"></div> <!-- Background overlay -->
+
+    
+    <section id="home" class="hero">
+       
+        <div class="san">
+            Find Daily Jobs Easily
+        </div>
+        <div class="sanju">
+            <p>Connecting unemployed individuals with daily work opportunities.</p>
+            <p class="sak">   "Find Work That Matches Your Skills".</p>
+        </div>
+        <a class="register-btn" onclick="openRegisterForm()">Register Now</a>
+        
+</section>
+
+
+
+<div class="images">
+    <img src="{{url_for('static',filename='images/waiters.jpg') }}" alt="Waiters">
+    <img src="{{url_for('static',filename='images/delieveryman.jpg') }}" alt="Delievery Man">
+    <img src="{{url_for('static',filename='images/work3.jpg') }}" alt="work3">
+    
+</div>
+
+
+<div class="container">
+ 
+    <p>Looking for work? Need extra income? <strong>JobLink</strong> connects job seekers with daily and short-term job opportunities to help you stay on your feet.</p>
+    <p>🔹 <strong>Find Work Fast</strong> – Browse available jobs near you and apply instantly.</p>
+    <p>🔹 <strong>Flexible Opportunities</strong> – Work on your schedule, whether it's one day or longer.</p>
+    <p>🔹 <strong>Support for Job Seekers</strong> – We help you find work that fits your skills and availability.</p>
+    <p><strong>Employers:</strong> Need extra hands? Post a job and connect with ready-to-work individuals in your area.</p>
+    
+</div>
+
+<section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Email: JobLink@gmail.com</p>
+    <p>Phone: +91 8770919505 </p>
+</section>
+
+
+<footer>
+    <p>&copy; 2025 JobLink. All rights reserved.</p>
+</footer>
+
+
+
+<script>
+
+document.getElementById("openRegister").addEventListener("click", function() {
+    document.getElementById("registrationModal").style.display = "flex";
+});
+
+document.querySelector(".close-btn").addEventListener("click", function() {
+    document.getElementById("registrationModal").style.display = "none";
+});
+        function openLoginSelection() {
+            document.getElementById("loginPopup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function openLoginForm(userType) {
+            closePopup();
+            document.getElementById(userType + "Login").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function openRegisterForm() {
+    document.getElementById("registerPopup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+function closePopup() {
+    document.querySelectorAll(".popup").forEach(popup => popup.style.display = "none");
+    document.getElementById("overlay").style.display = "none";
+}
+
+// Add event listener to ensure register button works
+document.querySelector(".register-btn").addEventListener("click", openRegisterForm);
+
+
+function submitRegistration() {
+    let name = document.getElementById("fullName").value;
+    let email = document.getElementById("username").value;  // Change to email field
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!name || !email || !password || !confirmPassword) {
+        alert("Please fill all fields!");
+        return;
+    }
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    let data = { name, email, password };
+
+    fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },  // Send JSON
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Registration Successful!");
+            closePopup();
+        } else {
+            alert("Error: " + data.error);
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+
+        function userLogin() {
+            let username = document.getElementById("loginUsername").value;
+            let password = document.getElementById("loginPassword").value;
+
+            if (!username || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            fetch("/login_user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "/user/" + data.user_id;
+                } else {
+                    alert("Invalid username or password.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function searchJobs() {
+            let searchTerm = document.getElementById("searchInput").value;
+            if (searchTerm) {
+                alert("Searching for jobs related to: " + searchTerm);
+            } else {
+                alert("Please enter a job keyword to search.");
+            }
+        }
+    </script>
+</body>
+</html>
