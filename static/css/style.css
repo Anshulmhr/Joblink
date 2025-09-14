@@ -1,0 +1,387 @@
+/* Apply box-sizing globally */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header Section */
+header {
+    background: black;
+    color: white;
+    padding: 25px 35px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px; /* Adjusted padding */
+}
+
+/* Ensuring text is vertically centered */
+nav ul {
+    display: flex;
+    align-items: center; /* Centers text properly */
+}
+
+nav ul li {
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+}
+/* Navigation Links - Set to White */
+nav ul li a {
+    color: white !important;  /* Ensures the text remains white */
+    text-decoration: none;  /* Removes the underline */
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;  /* Changes to yellow on hover for better visibility */
+}
+
+/* Register Button */
+.register-btn {
+    background: linear-gradient(135deg, #ffcc00, #ffdb4d);
+    color: black;
+    padding: 12px 24px; /* Increased padding for better proportions */
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 204, 0, 0.3);
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Login Button */
+.login-btn {
+    background: linear-gradient(135deg, #975de1, #6f44a7);
+    color: white;
+    padding: 12px 24px; /* Adjusted padding */
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 117, 140, 0.3);
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Hover Effect */
+.register-btn:hover {
+    background: linear-gradient(135deg, #ffb700, #ffd633);
+    box-shadow: 0px 6px 15px rgba(255, 183, 0, 0.5);
+    transform: translateY(-2px); /* Lift Effect */
+    cursor: pointer;
+}
+
+/* Click Effect */
+.register-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 5px rgba(255, 183, 0, 0.3);
+}
+
+
+/* Hover Effect */
+.login-btn:hover {
+    background: linear-gradient(135deg, #ff5c9d, #ff4f80);
+    box-shadow: 0px 6px 15px rgba(255, 79, 128, 0.5);
+    transform: translateY(-2px); /* Lift Effect */
+}
+
+/* Click Effect */
+.login-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0px 2px 5px rgba(255, 79, 128, 0.3);
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* Initially hidden */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: rgba(255, 255, 255, 0.1); /* Glass effect */
+    backdrop-filter: blur(10px); /* Blurry background */
+    border-radius: 15px;
+    padding: 25px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ffcc00;
+    cursor: pointer;
+}
+
+/* Title */
+.modal-content h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Form Styles */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Fields */
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Placeholder Color */
+.modal-content input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Button */
+.modal-content button {
+    background: linear-gradient(135deg, #ffcc00, #ffdb4d);
+    color: black;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+.modal-content button:hover {
+    background: linear-gradient(135deg, #ffb700, #ffd633);
+    box-shadow: 0px 6px 15px rgba(255, 183, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.modal-content p {
+    color: white;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 350px;
+    text-align: center;
+}
+
+.popup input {
+    width: 90%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.popup button {
+    width: 95%;
+    padding: 10px;
+    margin-top: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.popup button:hover {
+    background: #0056b3;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    background-image: url("/static/images/purple_background.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+/* Call-to-Action Button */
+.cta-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 15px 30px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+/* Contact Section */
+.contact-section {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: white;
+}
+
+/* Text Styling */
+.san, .sak {
+    font-weight: lighter;
+    font-size: 50px;
+    opacity: 0.7;
+    color: gray;
+}
+
+.sanju {
+    font-weight: normal;
+    font-size: 60px;
+    font-style: normal;
+    color: black;
+    opacity: 0.7;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 7px; /* Slightly increased padding */
+    border-radius: 5px;
+    width: 100%;
+    max-width: 450px; /* Increased width */
+    gap: 5px;
+}
+
+/* Slightly larger search input */
+.search-bar input {
+    border: none;
+    padding: 8px; /* Increased padding */
+    outline: none;
+    flex: 1;
+}
+
+/* Search Button */
+.search-bar button {
+    background: #ffcc00;
+    border: none;
+    padding: 8px 15px; /* Adjusted padding */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Image Styling */
+.images {
+    object-fit: cover;
+    background-size: cover;
+    transition: transform 0.3s ease-in-out;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+img:hover {
+    transform: scale(1.1);
+}
+
+/* Container Section */
+.container {
+    background-image: url("/static/images/yellow_background.jpg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 30px;
+
+    
+}
